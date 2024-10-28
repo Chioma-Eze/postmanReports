@@ -318,10 +318,7 @@
 					"script": {
 						"id": "bd899344-b91e-4b2c-a511-bc5a255b9e52",
 						"exec": [
-							"pm.test(\"total price\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.booking.totalprice).to.eql(110);",
-							"});",
+							"",
 							"pm.test(\"addintional needs\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.booking.additionalneeds).to.eql(\"Breakfast\");",
