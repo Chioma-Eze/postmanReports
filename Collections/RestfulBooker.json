@@ -1,0 +1,466 @@
+{
+	"info": {
+		"_postman_id": "b4d3547b-6970-4443-90dc-ecf4c68e4b4e",
+		"name": "Restful Booker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "190c1ae2-6d9d-4f99-922f-64dbcda05049",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "061d57b8-915e-4f2a-9c91-3ed901b51de8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{rb_url}}/ping"
+			},
+			"response": []
+		},
+		{
+			"name": "Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "15cc7b91-121d-462c-bc8c-a49128e5f970",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body contains token\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"token\");",
+							"});",
+							"pm.test(\"Response time is less than 205ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "71d3dd81-728e-416a-9a71-83e205205b20",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-mock-response-name",
+						"value": "auth token missing",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"password123\"\n}"
+				},
+				"url": "{{rb_url}}/auth"
+			},
+			"response": [
+				{
+					"id": "ef812b5d-7fce-4cc0-8133-9c51a0be8ebb",
+					"name": "Auth",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"password123\"\n}"
+						},
+						"url": "{{rb_url}}/auth"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "\"token\": \"29218b3ffed87b5\""
+				},
+				{
+					"id": "bc1d450d-19fa-4deb-8b90-7e0a853d586a",
+					"name": "Auth token missing",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"password123\"\n}"
+						},
+						"url": "{{rb_url}}/auth"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "\"token\": \"29218b3ffed87b5\""
+				}
+			]
+		},
+		{
+			"name": "Get All Bookings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d77736b0-82fd-4e06-b220-696811b949c3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//pm.execution.setNextRequest(\"Get Bookings By Date\");",
+							"",
+							"var sixDigit = Math.floor(Math.random()* 1000000);",
+							"//phoneNumber = '080' + eightDigit",
+							"console.log(sixDigit);",
+							"",
+							"console.log();"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7e554e0b-4148-4248-83f4-232a2fc0c2f6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "9a34c7b9-b1ee-4fba-b0bc-37fbff2800b2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{rb_url}}/booking"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Booking By Name",
+			"id": "a4ad2605-e7f8-4ace-91e1-38f81de1189d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{rb_url}}/booking?firstname=lolo&lastname=lolo",
+					"host": [
+						"{{rb_url}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": "lolo"
+						},
+						{
+							"key": "lastname",
+							"value": "lolo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Bookings By Date",
+			"id": "ebae97d7-531d-449b-86d4-66a96d47f7d9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{rb_url}}/booking?checkin=2014-03-13&checkout=2014-05-21",
+					"host": [
+						"{{rb_url}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "checkin",
+							"value": "2014-03-13"
+						},
+						{
+							"key": "checkout",
+							"value": "2014-05-21"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Booking By ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "76bf5770-a2b8-47e1-9350-2afbc83f5f1f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0598de68-374d-4474-b943-27aa227d4427",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "bfdfc6ed-b205-40a6-b390-b3ca105891da",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": "{{rb_url}}/booking/618"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bd899344-b91e-4b2c-a511-bc5a255b9e52",
+						"exec": [
+							"pm.test(\"total price\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.booking.totalprice).to.eql(110);",
+							"});",
+							"pm.test(\"addintional needs\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.booking.additionalneeds).to.eql(\"Breakfast\");",
+							"});",
+							"//pm.execution.setNextRequest(null);",
+							"console.log();"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "0670249e-2704-4fd8-b42d-d0011899cab4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"lolo\",\n    \"lastname\" : \"lolo\",\n    \"totalprice\" : 110,\n    \"depositpaid\" : \"\",\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}"
+				},
+				"url": "{{rb_url}}/booking"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Booking",
+			"id": "e3ed1cc2-d922-4f53-b275-805b33c7f440",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token=abc123"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"James\",\n    \"lastname\" : \"Brown\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}"
+				},
+				"url": "{{rb_url}}/booking/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Partial Update Booking",
+			"id": "050e4dea-da6b-4357-b3ad-0ab603407f24",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token=abc123"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"James\",\n    \"lastname\" : \"Brown\"\n}"
+				},
+				"url": "{{rb_url}}/booking/4007"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Booking",
+			"id": "bc60097b-af12-4ce2-b8c6-67bd5e1c0a5c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token=abc123"
+					}
+				],
+				"url": "{{rb_url}}/booking/5126"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "inherit",
+		"inherit": {}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0163599a-e919-4e23-ad60-fa8de46191ba",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3c26178a-087e-4818-b1f3-c2b5eddc4566",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
